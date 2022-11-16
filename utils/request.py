@@ -25,8 +25,11 @@ import numpy as np
 # Load data from file to send as an API POST request.
 # We prepare a DataFrame with the public test set + riders data
 # from the Kaggle challenge.
-test = pd.read_csv('./data/df_test.csv')
-
+test = pd.read_csv('./data/df_cleaned.csv')
+test = test[['month', 'hour', 'dayofweek', 'quarter', 'weekofyear', 'dayofyear',
+       'avg_wind_speed', 'avg_wind_deg', 'avg_rain_1h', 'avg_rain_3h',
+       'avg_humidity', 'avg_clouds_all', 'avg_pressure', 'avg_snow_3h',
+       'weather_id', 'avg_temp_max', 'avg_temp_min', 'avg_temp']]
 
 # Convert our DataFrame to a JSON string.
 # This step is necessary in order to transmit our data via HTTP/S

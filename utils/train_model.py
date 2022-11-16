@@ -15,10 +15,13 @@ import pickle
 from sklearn.linear_model import LinearRegression
 
 # Fetch training data and preprocess for modeling
-train = pd.read_csv('./data/df_train.csv')
+train = pd.read_csv('./data/df_cleaned.csv')
 
 y_train = train[['load_shortfall_3h']]
-X_train = train[['Madrid_wind_speed','Bilbao_rain_1h','Valencia_wind_speed']]
+X_train = train[['month', 'hour', 'dayofweek', 'quarter', 'weekofyear', 'dayofyear',
+       'avg_wind_speed', 'avg_wind_deg', 'avg_rain_1h', 'avg_rain_3h',
+       'avg_humidity', 'avg_clouds_all', 'avg_pressure', 'avg_snow_3h',
+       'weather_id', 'avg_temp_max', 'avg_temp_min', 'avg_temp']]
 
 # Fit model
 lm_regression = LinearRegression(normalize=True)
@@ -26,6 +29,6 @@ print ("Training Model...")
 lm_regression.fit(X_train, y_train)
 
 # Pickle model for use within our API
-save_path = '../assets/trained-models/load_shortfall_simple_lm_regression.pkl'
+save_path = '../assets/trained-models/model_.pkl'
 print (f"Training completed. Saving model to: {save_path}")
 pickle.dump(lm_regression, open(save_path,'wb'))
